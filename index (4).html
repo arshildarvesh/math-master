@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 6 Maths Master</title>
+<style>
+:root{--navy:#263c78;--blue:#4968c8;--pale:#eef2ff;--ink:#202744;--muted:#68718a;--green:#16804a;--red:#b42335}
+*{box-sizing:border-box}body{margin:0;background:#000;color:#f3f4f8;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(135deg,#263c78,#526fce);color:white;padding:28px 18px 24px;text-align:center}
+header h1{margin:0;font-size:clamp(1.8rem,5vw,2.6rem)}header p{margin:8px 0 0;color:#e6ebff}
+main{max-width:920px;margin:20px auto;padding:0 14px 36px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+nav button,.level button{border:1px solid #3d3d49;border-radius:12px;padding:11px 16px;font-weight:700;background:#19191f;color:#f3f4f8;cursor:pointer}
+nav button.active{background:var(--navy);color:white}
+.panel{background:#111114;border:1px solid #292930;border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:0 5px 20px #0008}
+h2{margin:0 0 12px;font-size:1.45rem}h3{margin:18px 0 8px}
+.topic-row,.level{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.topic-row button,.action{border:1px solid #cdd5ed;background:white;color:var(--ink);padding:9px 13px;border-radius:10px;cursor:pointer;font-weight:650}
+.topic-row button.active,.action.primary{background:var(--blue);color:white;border-color:var(--blue)}
+.callout{background:#20243a;border:1px solid #353b59;border-radius:14px;padding:15px;margin:12px 0}
+.math{font-size:1.2rem;font-weight:750;text-align:center;padding:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.tile{background:#19191f;border:1px solid #34343e;border-radius:14px;padding:14px}
+label{display:block;font-weight:650;margin:10px 0 5px}
+input,select{font:inherit;padding:10px;border:1px solid #454552;border-radius:10px;width:100%;max-width:260px;background:#09090c;color:#f3f4f8}
+.result{font-weight:750;margin-top:12px;padding:12px;border-radius:10px;background:#202027;color:#f3f4f8}
+table{border-collapse:collapse;width:100%;margin-top:10px}th,td{padding:10px;border-bottom:1px solid #34343e;text-align:left}th{background:#202027}
+.level button.active{background:var(--navy);color:white}
+.answers{display:grid;gap:9px;margin-top:14px}.answers button{padding:12px;border:1px solid #d4daeb;background:#19191f;color:#f3f4f8;border-radius:11px;text-align:left;font:inherit;cursor:pointer}.answers button:disabled{cursor:default}.answers button.correct{background:#153626;border-color:#39865a;color:#e4fff0}.answers button.wrong{background:#3a1b20;border-color:#a95761;color:#ffe9ec}
+.feedback{padding:12px;border-radius:10px;margin-top:12px;font-weight:650}.good{background:#153626;color:#a9f0c6}.bad{background:#3a1b20;color:#ffc0c8}
+.small{color:#aeb4c6;font-size:.93rem}.hide{display:none}
+footer{text-align:center;color:var(--muted);font-size:.9rem;margin-top:20px}
+</style>
+</head>
+<body>
+<header><h1>Maths Master</h1><p>Year 6 • Fractions, Decimals & Percentages</p></header>
+<main>
+<nav aria-label="App sections">
+<button class="active" data-section="learn">Learn & Convert</button>
+<button data-section="keywords">Keywords</button>
+<button data-section="quiz">Quiz</button>
+</nav>
+
+<section id="learn" class="section">
+<div class="panel">
+<h2>Learn how to convert</h2>
+<p class="small">Choose what you want to convert. Use the examples to help you.</p>
+<div class="topic-row" id="conversionTabs">
+<button class="active" data-topic="f-d">Fraction → Decimal</button>
+<button data-topic="d-p">Decimal → Percentage</button>
+<button data-topic="p-f">Percentage → Fraction</button>
+<button data-topic="p-d">Percentage → Decimal</button>
+<button data-topic="d-f">Decimal → Fraction</button>
+<button data-topic="f-p">Fraction → Percentage</button>
+<button data-topic="percent-number">Percentage of a number</button>
+</div>
+<div id="lesson" class="callout"></div>
+<div class="grid">
+<div class="tile"><h3>Try a conversion</h3>
+<label for="convertInput" id="inputLabel">Enter a fraction (example: 3/4)</label>
+<input id="convertInput" placeholder="3/4">
+<button class="action primary" id="convertBtn" style="margin-top:12px">Convert</button>
+<div class="result" id="convertResult" aria-live="polite">Your answer will appear here.</div>
+</div>
+<div class="tile"><h3>Remember</h3>
+<p><b>Fraction → Decimal:</b> numerator ÷ denominator</p>
+<p><b>Decimal → Percentage:</b> × 100</p>
+<p><b>Percentage → Decimal:</b> ÷ 100</p>
+<p><b>Percentage → Fraction:</b> put it over 100, then simplify.</p>
+</div>
+</div>
+</div>
+<div class="panel"><h2>Useful conversion table</h2>
+<table><thead><tr><th>Fraction</th><th>Decimal</th><th>Percentage</th></tr></thead><tbody>
+<tr><td>1/2</td><td>0.5</td><td>50%</td></tr><tr><td>1/4</td><td>0.25</td><td>25%</td></tr><tr><td>3/4</td><td>0.75</td><td>75%</td></tr><tr><td>1/5</td><td>0.2</td><td>20%</td></tr><tr><td>2/5</td><td>0.4</td><td>40%</td></tr><tr><td>1/10</td><td>0.1</td><td>10%</td></tr><tr><td>1/100</td><td>0.01</td><td>1%</td></tr>
+</tbody></table>
+</div>
+</section>
+
+<section id="keywords" class="section hide">
+<div class="panel"><h2>Maths Keywords</h2><p class="small">Learn the important words for Year 6.</p>
+<div class="grid">
+<div class="tile"><h3>Fractions</h3><p><b>Numerator:</b> the top number; how many parts you have.</p><p><b>Denominator:</b> the bottom number; how many equal parts make the whole.</p><p><b>Equivalent:</b> fractions with the same value.</p><p><b>Simplify:</b> make a fraction smaller without changing its value.</p><p><b>Proper fraction:</b> a fraction less than one whole.</p></div>
+<div class="tile"><h3>Decimals</h3><p><b>Decimal point:</b> separates whole numbers from decimal parts.</p><p><b>Tenths:</b> parts divided into 10 equal pieces.</p><p><b>Hundredths:</b> parts divided into 100 equal pieces.</p><p><b>Place value:</b> the value of a digit because of its position.</p></div>
+<div class="tile"><h3>Percentages</h3><p><b>Percent:</b> means “out of 100”.</p><p><b>Discount:</b> an amount taken off a price.</p><p><b>Increase:</b> when an amount gets larger.</p><p><b>Decrease:</b> when an amount gets smaller.</p><p><b>Convert:</b> change a number from one form to another.</p></div>
+</div></div>
+</section>
+
+<section id="quiz" class="section hide">
+<div class="panel"><h2>Maths Quiz</h2><p class="small">Choose your difficulty. “Impossible” is very challenging, but still Year 6 maths!</p>
+<div class="level"><button class="active" data-level="Easy">Easy</button><button data-level="Medium">Medium</button><button data-level="Impossible">Impossible</button></div>
+<div id="quizArea"></div>
+</div>
+</section>
+<footer>Keep practising — you can become a Maths Master!</footer>
+</main>
+<script>
+const lessons={
+"f-d":{label:"Enter a fraction (example: 3/4)",placeholder:"3/4",text:"To change a fraction into a decimal, divide the numerator (top number) by the denominator (bottom number). Example: 3 ÷ 4 = 0.75."},
+"d-p":{label:"Enter a decimal (example: 0.75)",placeholder:"0.75",text:"To change a decimal into a percentage, multiply by 100 and add the % sign. Example: 0.75 × 100 = 75%."},
+"p-f":{label:"Enter a percentage (example: 75%)",placeholder:"75%",text:"Put the percentage over 100, then simplify. Example: 75/100 = 3/4."},
+"p-d":{label:"Enter a percentage (example: 45%)",placeholder:"45%",text:"To change a percentage into a decimal, divide by 100. Example: 45 ÷ 100 = 0.45."},
+"d-f":{label:"Enter a decimal (example: 0.6)",placeholder:"0.6",text:"Write the decimal as a fraction using its place value, then simplify. Example: 0.6 = 6/10 = 3/5."},
+"f-p":{label:"Enter a fraction (example: 2/5)",placeholder:"2/5",text:"Divide the numerator by the denominator, then multiply by 100. Example: 2 ÷ 5 = 0.4 = 40%."},
+"percent-number":{label:"Enter a percentage of a number (example: 25% of 80)",placeholder:"25% of 80",text:"To find a percentage of a number, change the percentage into a decimal, then multiply. Example: 25% of 80 = 0.25 × 80 = 20. You can also find 10% first and use it to help."}
+};
+let topic="f-d";
+const lesson=document.getElementById("lesson"),input=document.getElementById("convertInput"),inputLabel=document.getElementById("inputLabel"),result=document.getElementById("convertResult");
+function setTopic(t){topic=t;document.querySelectorAll("#conversionTabs button").forEach(b=>b.classList.toggle("active",b.dataset.topic===t));lesson.textContent=lessons[t].text;inputLabel.textContent=lessons[t].label;input.placeholder=lessons[t].placeholder;input.value="";result.textContent="Your answer will appear here."}
+document.querySelectorAll("#conversionTabs button").forEach(b=>b.addEventListener("click",()=>setTopic(b.dataset.topic)));
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){let t=b;b=a%b;a=t}return a||1}
+function fraction(x){let parts=x.trim().split("/");if(parts.length!==2)throw Error("Please use a fraction like 3/4.");let a=Number(parts[0]),b=Number(parts[1]);if(!Number.isFinite(a)||!Number.isFinite(b)||!Number.isInteger(a)||!Number.isInteger(b)||b===0)throw Error("Enter whole-number numerator and denominator; denominator cannot be zero.");if(b<0){a=-a;b=-b}let g=gcd(a,b);return [a/g,b/g]}
+function simplify(a,b){let g=gcd(a,b);a/=g;b/=g;if(b<0){a=-a;b=-b}return b===1?String(a):`${a}/${b}`}
+document.getElementById("convertBtn").addEventListener("click",()=>{
+try{let v=input.value.trim(),out="";
+if(!v)throw Error("Enter a number first.");
+if(topic==="f-d"){let [a,b]=fraction(v);out=`${a} ÷ ${b} = ${Number((a/b).toFixed(10))}`;}
+if(topic==="d-p"){let n=Number(v);if(!Number.isFinite(n))throw Error("Enter a decimal number.");out=`${n} × 100 = ${n*100}%`;}
+if(topic==="p-f"){let n=Number(v.replace("%",""));if(!Number.isFinite(n))throw Error("Enter a percentage such as 75%.");out=`${n}% = ${simplify(n,100)}`;}
+if(topic==="p-d"){let n=Number(v.replace("%",""));if(!Number.isFinite(n))throw Error("Enter a percentage such as 45%.");out=`${n}% ÷ 100 = ${Number((n/100).toFixed(10))}`;}
+if(topic==="d-f"){let n=Number(v);if(!Number.isFinite(n))throw Error("Enter a decimal number.");let s=String(n),dec=(s.split(".")[1]||"").length,den=10**dec;out=`${n} = ${simplify(Math.round(n*den),den)}`;}
+if(topic==="f-p"){let [a,b]=fraction(v);out=`${a} ÷ ${b} × 100 = ${Number((a/b*100).toFixed(8))}%`;}
+if(topic==="percent-number"){
+let match=v.match(/^\s*(-?\d+(?:\.\d+)?)\s*%?\s*(?:of|×|x)\s*(-?\d+(?:\.\d+)?)\s*$/i);
+if(!match)throw Error("Use a format like 25% of 80.");
+let pct=Number(match[1]),whole=Number(match[2]),answer=pct/100*whole;
+out=`${pct}% of ${whole} = ${pct/100} × ${whole} = ${Number(answer.toFixed(10))}`;
+}
+result.textContent=out;
+}catch(e){result.textContent=e.message}
+});
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll(".section").forEach(s=>s.classList.toggle("hide",s.id!==b.dataset.section))}));
+const questions={
+Easy:[
+["What is 1/2 as a decimal?",["0.2","0.5","1.2"],1],
+["What is 25% as a fraction?",["1/4","1/2","3/4"],0],
+["What is 0.75 as a percentage?",["7.5%","75%","750%"],1],
+["What is 1/10 as a percentage?",["1%","10%","100%"],1],
+["What is 50% as a decimal?",["5","0.5","0.05"],1]],
+Medium:[
+["What is 3/4 as a percentage?",["25%","75%","80%"],1],
+["Which is equal to 0.4?",["4/100","2/5","4/5"],1],
+["Convert 35% to a simplest fraction.",["7/20","3/5","35/10"],0],
+["Which is the greatest?",["0.62","60%","3/5"],0],
+["What is 0.125 as a percentage?",["1.25%","12.5%","125%"],1]],
+Impossible:[
+["Which is the smallest?",["5/8","0.62","63%"],1],
+["A number becomes 72 after a 20% increase. What was it?",["60","57.6","62"],0],
+["Convert 7/16 to a percentage.",["43.75%","47.5%","37.5%"],0],
+["A value is 0.36. Which fraction is simplest?",["9/25","3/8","18/25"],0],
+["Which list is in ascending order?",["0.45, 4/9, 46%","4/9, 0.45, 46%","46%, 0.45, 4/9"],0]]
+};
+let level="Easy",qi=0,score=0,locked=false;
+function renderQuiz(){
+let area=document.getElementById("quizArea"),qs=questions[level],q=qs[qi];locked=false;
+area.innerHTML=`<p><b>${level} level</b> · Question ${qi+1} of ${qs.length} · Score: ${score}</p><div class="callout"><h3>${q[0]}</h3><div class="answers">${q[1].map((a,i)=>`<button data-answer="${i}">${a}</button>`).join("")}</div><div id="feedback"></div></div><button class="action primary" id="next" disabled>${qi===qs.length-1?"Finish quiz":"Next question"}</button>`;
+area.querySelectorAll("[data-answer]").forEach(btn=>btn.addEventListener("click",()=>{
+if(locked)return;locked=true;let chosen=+btn.dataset.answer,correct=q[2];if(chosen===correct)score++;
+area.querySelectorAll("[data-answer]").forEach((x,i)=>{x.disabled=true;if(i===correct)x.classList.add("correct");if(i===chosen&&i!==correct)x.classList.add("wrong")});
+let fb=document.getElementById("feedback");fb.className="feedback "+(chosen===correct?"good":"bad");fb.textContent=chosen===correct?"Correct! Great job!":"Not quite. The correct answer is "+q[1][correct]+".";document.getElementById("next").disabled=false;
+}));
+document.getElementById("next").addEventListener("click",()=>{if(qi<qs.length-1){qi++;renderQuiz()}else{area.innerHTML=`<div class="callout"><h3>Quiz complete!</h3><p>You scored <b>${score} out of ${qs.length}</b>.</p><p>${score===qs.length?"Excellent! Maths Master!":score>=3?"Good work! Keep practising.":"Keep learning and try again!"}</p><button class="action primary" id="again">Try again</button></div>`;document.getElementById("again").addEventListener("click",()=>{qi=0;score=0;renderQuiz()})}});
+}
+document.querySelectorAll(".level button").forEach(b=>b.addEventListener("click",()=>{level=b.dataset.level;qi=0;score=0;document.querySelectorAll(".level button").forEach(x=>x.classList.toggle("active",x===b));renderQuiz()}));
+setTopic("f-d");renderQuiz();
+</script>
+</body>
+</html>
